@@ -1,0 +1,36 @@
+<h1 class="titles">"The Authors"</h1>
+
+<h3 class="titles">Authors List</h3>
+
+<form action="/authors">
+  <div class="form-group">
+    <label for="search_input">Search</label>
+    <input id="search" name="search_input" class="form-control" type="text">
+  </div>
+  <button type="submit" class="danger">SEARCH!</button>
+</form>
+
+<form action="/authors" method="get">
+  <input name="clear_inputs" type="hidden" value="clear">
+  <button type="submit" name="clear">Clear Results</button>
+</form>
+
+<form action="/authors" method="get">
+  <input name="sort_list" type="hidden" value="search">
+  <button type="submit">Sort List</button>
+</form>
+
+
+
+<% if @authors.any? %>
+<ul>
+  <% @authors.each do |author| %>
+  <h4><a href="/authors/<%= author.id %>"><%= author.name %></a></h4>
+  <% end %>
+</ul>
+<% else %>
+<p>There are currently no authors to display.</p>
+<% end %>
+
+<a href="/authors/new">Add a new author</a><br>
+<a href="/books">Go to books list</a>

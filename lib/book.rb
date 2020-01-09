@@ -1,23 +1,20 @@
 class Book
-  attr_accessor :title, :id, :author
+  attr_accessor :title, :id
 
   def initialize(attributes)
     @title = attributes.fetch(:title)
     @id = attributes.fetch(:id)
-    @author = attributes.fetch(:author)
 
   end
 
   def save
-    result = DB.exec("INSERT INTO books (title, id, author) VALUES ('#{@title}', '#{@author}') RETURNING id;")
+    result = DB.exec("INSERT INTO books (title) VALUES ('#{@title}') RETURNING id;")
     @id = result.first().fetch("id").to_i
   end
 
-  def update(attributes)
-    @title = attributes.fetch(:title) || @title
-    @author = attributes.fetch(:author) || @author
-    DB.exec("UPDATE albums SET title = '#{@title}' WHERE id = #{@id};")
-    DB.exec("UPDATE albums SET author = '#{@author}' WHERE id = #{@id};")
+  def update(title)
+    @title = title || @title
+    DB.exec("UPDATE books SET title = '#{@title}' WHERE id = #{@id};")
   end
 
   def ==(book_to_compare)
@@ -35,9 +32,8 @@ class Book
   def self.find(id)
     book = DB.exec("SELECT * FROM books WHERE id = #{id};").first
     title = book.fetch("title")
-    id = album.fetch("id").to_i
-    artist = album.fetch("artist")
-    Album.new({:title => title, :id => id, :artist => artist})
+    id = book.fetch("id").to_i
+    Book.new({:title => title, :id => id})
   end
 
   def self.get_books(query)
@@ -46,8 +42,7 @@ class Book
     returned_books.each() do |book|
       title = book.fetch("title")
       id = book.fetch("id").to_i
-      author = book.fetch("author")
-      books.push(Book.new({:title => title, :id => id, :author => author}))
+      books.push(Book.new({:title => title, :id => id}))
     end
     books
   end
@@ -58,18 +53,11 @@ class Book
 
   def self.sort
     self.get_books("SELECT * FROM books ORDER BY lower(title);")
-    # @albums.values.sort {|a, b| a.name.downcase <=> b.name.downcase}
+    # @books.values.sort {|a, b| a.name.downcase <=> b.name.downcase}
   end
 
   def self.search(x)
     self.get_books("SELECT * FROM books WHERE title = '#{x}'")
-    # @albums.values.select { |e| /#{x}/i.match? e.name}
+    # @books.values.select { |e| /#{x}/i.match? e.name}
   end
-end
-
-
-
-
-
-
 end

@@ -1,0 +1,18 @@
+<h1>Update <%= @author.name() %></h1>
+
+<form action="/authors/<%= @author.id() %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+
+  <label for="name">Rename author</label>
+  <input id="title" name="name" type="text">
+
+  <button type="submit"class="danger">Update</button>
+</form>
+
+<p><a href="/authors">Return to author list</a></p>
+
+<form action="/authors/<%= @author.id() %>" method="post">
+  <input name="_method" type="hidden" value="delete">
+
+  <button type="submit"class="danger">Delete author</button>
+</form>
