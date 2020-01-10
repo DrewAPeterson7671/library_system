@@ -1,11 +1,33 @@
-<h2>Book Name: <%= @author.name %></h2>
+<h2>Author Name: <%= @author.name %></h2>
 
 
 
+<h3>Author Books</h3>
 
+<% if @author.books.any? %>
+  <ul>
+    <% @author.books.each do |book| %>
+      <li><a href="/authors/<%= @author.id %>/books/<%= book.id %>"><%= book.title %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no books listed for this author yet.</p>
+<% end %>
 
-  <!-- POSSIBLE BOOKS LIST -->
+<h4>Add an book:</h4>
 
+<form action="/authors/<%= @author.id %>/books" method="post">
+  <div class="form-group">
+    <label for="book_name">Book name</label>
+    <input id="book_name" name="book_name" class="form-control" type="text">
+  </div>
+  <button type="submit" class="btn">Add book</button>
+</form>
+
+<form action="/authors/<%= @author.id() %>/edit" method="get">
+  <input name="_method" type="hidden" value="edit">
+  <button type="submit">Edit Author</button>
+</form>
 
 
 

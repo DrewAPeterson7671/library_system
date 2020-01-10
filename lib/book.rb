@@ -57,7 +57,7 @@ class Book
   end
 
   def self.search(x)
-    self.get_books("SELECT * FROM books WHERE title = '#{x}'")
+    self.get_books("SELECT * FROM books WHERE title ILIKE '%#{x}%'")
     # @books.values.select { |e| /#{x}/i.match? e.name}
   end
 end

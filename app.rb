@@ -101,10 +101,10 @@ post('/authors') do
 end
 
 patch('/authors/:id') do
-@author  = Author.find(params[:id].to_i())
-@author.update(params[:name])
-@authors = Author.all
-erb(:authors)
+  @author  = Author.find(params[:id].to_i())
+  @author.update(params[:name])
+  @authors = Author.all
+  erb(:authors)
 end
 
 delete('/authors/:id') do
@@ -112,6 +112,15 @@ delete('/authors/:id') do
   @author.delete()
   @authors = Author.all
   erb(:authors)
+end
+
+post ('/authors/:id/books') do
+  @author = Author.find(params[:id].to_i())
+  book_name = params[:book_name]
+  # book = Book.new({:name => book_name, :id => nil})
+  # book.save()
+  @author.update({:book_name => book_name})
+  erb(:edit_author)
 end
 
 # get('/custom_route') do

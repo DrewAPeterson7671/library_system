@@ -79,14 +79,28 @@ describe '#Author' do
   end
 
 
-describe('#update') do
-  it("adds an book to an author") do
-    author = Author.new({:name => "John Coltrane", :id => nil})
-    author.save()
-    book = Book.new({:title => "A Love Supreme", :id => nil})
-    book.save()
-    author.update({:book_name => "A Love Supreme"})
-    expect(author.books).to(eq([book]))
+  describe('#update') do
+    it("adds an book to an author") do
+      author = Author.new({:name => "John Coltrane", :id => nil})
+      author.save()
+      book = Book.new({:title => "A Love Supreme", :id => nil})
+      book.save()
+      author.update({:book_name => "A Love Supreme"})
+      expect(author.books).to(eq([book]))
+    end
   end
-end
+
+  describe('.books') do
+    it("search for a book while in author") do
+      author = Author.new({:name => "John Coltrane", :id => nil})
+      author.save()
+      book = Book.new({:title => "A Love Supreme", :id => nil})
+      book.save()
+      author.update({:book_name => "A Love Supreme"})
+      expect(author.books).to(eq([book]))
+    end
+  end
+
+
+
 end

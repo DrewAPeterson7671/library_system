@@ -4,10 +4,22 @@
   <input name="_method" type="hidden" value="patch">
 
   <label for="name">Rename author</label>
-  <input id="title" name="name" type="text">
+  <input id="name" name="name" type="text">
 
   <button type="submit"class="danger">Update</button>
 </form>
+
+<form action="/authors/<%= @author.id() %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+
+  <label for="associate_book">Associate this author with a book</label>
+  <input id="associate_book" name="associate_book" type="text">
+
+  <button type="submit"class="danger">Update</button>
+</form>
+
+
+
 
 <p><a href="/authors">Return to author list</a></p>
 
